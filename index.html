@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet"/>
+    <title>Drawly</title>
+    <script type="module" src="index.js"></script>
+</head>
+
+<body>
+    <div id="canvasContainer">
+
+        <canvas id="canvas" class="canvas" height="1080" width="1920">
+
+        </canvas>
+    </div>
+    <menu id="menu">
+        <li>
+            <label>
+                <span class="label__text">Stroke Type</span>
+                <select id="typeSelect">
+
+                </select>
+            </label>
+        </li>
+        <li>
+            <label>
+                <span class="label__text">Stroke Color</span>
+                <input type="color" id="strokeColorSelect" />
+            </label>
+        </li>
+        <li>
+            <label>
+                <span class="label__text">Background Color</span>
+                <input type="color" id="backgroundColorSelect" />
+            </label>
+        </li>
+        <li>
+            <button id="clearButton">Clear</button>
+        </li>
+        <li>
+            <button id="undoButton">Undo Stroke</button>
+        </li>
+        <li class="color-table">
+
+        </li>
+    </menu>
+</body>
+
+</html>
