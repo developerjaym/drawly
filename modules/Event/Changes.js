@@ -17,6 +17,12 @@ export default class Changes {
     static get CLEAR_MARKS() {
         return "CLEAR_MARKS";
     }
+    static get ERASE_MARK() {
+        return "ERASE_MARK";
+    }
+    static get MODE() {
+        return "MODE";
+    }
     static get UNDO() {
         return "UNDO";
     }

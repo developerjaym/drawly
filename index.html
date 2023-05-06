@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="styles.css" rel="stylesheet"/>
+    <link href="styles.css" rel="stylesheet" />
     <title>Drawly</title>
     <script type="module" src="index.js"></script>
 </head>
@@ -18,35 +18,72 @@
         </canvas>
     </div>
     <menu id="menu">
-        <li>
-            <label>
-                <span class="label__text">Stroke Type</span>
-                <select id="typeSelect">
+        <header>
+            <h1>Drawly</h1>
+        </header>
+        <fieldset>
+            <legend>Actions</legend>
+            <li class="menu__item">
+                <button id="clearButton" class="menu__button"> <img src="assets/trash.svg" alt="Trashcan" width="32" height="32"><span>Clear
+                        All
+                        Strokes</span></button>
+            </li>
+            <li class="menu__item">
+                <button id="undoButton" class="menu__button"> <img src="assets/undo.svg" alt="Undo stroke" width="32" height="32"> <span>Undo
+                        Stroke</span></button>
+            </li>
+        </fieldset>
+        <fieldset>
+            <legend>Background</legend>
+            <li class="menu__item">
+                <label>
+                    <span class="label__text">Background Color</span>
+                    <input type="color" class="menu__input" id="backgroundColorSelect" />
+                </label>
+            </li>
+        </fieldset>
+        <fieldset>
+            <legend>Mode</legend>
 
-                </select>
-            </label>
-        </li>
-        <li>
-            <label>
-                <span class="label__text">Stroke Color</span>
-                <input type="color" id="strokeColorSelect" />
-            </label>
-        </li>
-        <li>
-            <label>
-                <span class="label__text">Background Color</span>
-                <input type="color" id="backgroundColorSelect" />
-            </label>
-        </li>
-        <li>
-            <button id="clearButton">Clear</button>
-        </li>
-        <li>
-            <button id="undoButton">Undo Stroke</button>
-        </li>
-        <li class="color-table">
+            <li class="menu__item">
+                <button id="eraserButton" class="menu__button"><img src="assets/eraser.svg" height="32"
+                        width="32" />
+                    <span>Erase</span></button>
+            </li>
+            <li class="menu__item">
+                <button id="drawButton" class="menu__button button--active">
+                    <img src="assets/pencil.svg" height="32" width="32" />
+                    <span>Draw</span></button>
+            </li>
+        </fieldset>
+        <fieldset>
+            <legend>Stroke Style</legend>
+            <li class="menu__item">
+                <label>
+                    <span class="label__text">Stroke Type</span>
+                    <select class="menu__input" id="typeSelect">
 
-        </li>
+                    </select>
+                </label>
+            </li>
+            <li class="menu__item">
+                <label>
+                    <span class="label__text">Stroke Color</span>
+                    <input class="menu__input" type="color" id="strokeColorSelect" />
+                </label>
+            </li>
+        </fieldset>
+        <fieldset>
+            <legend>
+                Used Colors
+            </legend>
+            <li class="color-table">
+
+            </li>
+        </fieldset>
+        
+
+
     </menu>
 </body>
 

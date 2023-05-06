@@ -1,15 +1,18 @@
 export default class LocalStorageService {
-    static #KEY = "drawly"
-    onChange(change, state) {
-        this.#save(state);
+  static #KEY = "drawly";
+  async onChange(change, state) {
+    await this.#save(state)
+  }
+  async load() {
+    const savedData = localStorage.getItem(LocalStorageService.#KEY);
+    if (savedData) {
+      return JSON.parse(savedData);
     }
-    async load() {
-        const savedData = localStorage.getItem(LocalStorageService.#KEY);
-        if (savedData) {
-            return JSON.parse(savedData)
-        }
-    }
-    async #save(state) {
-        localStorage.setItem(LocalStorageService.#KEY, JSON.stringify(state, null, 2));
-    }
+  }
+  async #save(state) {
+    localStorage.setItem(
+      LocalStorageService.#KEY,
+      JSON.stringify(state, null, 2)
+    );
+  }
 }
