@@ -1,5 +1,6 @@
 import Changes from "../../Event/Changes.js";
 import Mode from "../../Model/Mode.js";
+import IDGenerator from "../../Service/Id/IdGenerator.js";
 
 class Pen {
   #observers;
@@ -17,7 +18,7 @@ class Pen {
     this.x = offsetX;
     this.y = offsetY;
     this.isDrawing = true;
-    this.strokeGroupId = crypto.randomUUID();
+    this.strokeGroupId = IDGenerator();
   }
   onMoving({ offsetX, offsetY }) {
     if (this.isDrawing) {

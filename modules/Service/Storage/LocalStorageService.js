@@ -12,7 +12,7 @@ export default class LocalStorageService {
   async #save(state) {
     localStorage.setItem(
       LocalStorageService.#KEY,
-      JSON.stringify(state, null, 2)
+      JSON.stringify(state)
     );
   }
 }

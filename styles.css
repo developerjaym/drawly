@@ -14,6 +14,12 @@ html {
   box-sizing: border-box;
 }
 
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
 #canvasContainer {
   grid-area: canvas;
   z-index: 1;
@@ -48,12 +54,12 @@ html {
 .color-table {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  place-items: center;
+  grid-auto-rows: 3rem;
 }
 
 .color-cell {
-  height: 2rem;
-  width: 2rem;
+  height: 100%;
+  width: 100%;
 }
 
 .menu__button {
