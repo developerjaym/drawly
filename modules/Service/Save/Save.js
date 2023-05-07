@@ -1,3 +1,3 @@
-export default function Save(canvas) {
-    return canvas.toDataURL();
+export default function Save() {
+    return document.getElementById("canvas").toDataURL();
 }

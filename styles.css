@@ -1,7 +1,7 @@
 body {
   margin: 0;
   display: grid;
-  grid-template-areas: "nav canvas";
+  grid-template-areas: "menu canvas";
   grid-template-columns: 10rem calc(100vw - 10rem);
 }
 
@@ -20,19 +20,31 @@ header {
   justify-content: space-evenly;
 }
 
-#menu {
-  grid-area: nav;
-  z-index: 2;
+menu {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+}
+
+#menu {
+  grid-area: menu;
+  z-index: 2;
+ 
   display: flex;
   flex-direction: column;
   align-items: stretch;
   row-gap: 2px;
   width: 10rem;
-  margin: 0;
-  padding: 0;
+  
   max-height: 100vh;
   overflow-y: auto;
+}
+
+#downloadButton {
+  text-decoration: none;
 }
 
 #canvasContainer {
@@ -96,7 +108,7 @@ header {
   body {
     margin: 0;
     display: grid;
-    grid-template-areas: "nav canvas";
+    grid-template-areas: "menu canvas";
     grid-template-columns: 0 100vw;
   }
 }
@@ -105,11 +117,11 @@ header {
   body {
     margin: 0;
     display: grid;
-    grid-template-areas: "nav" "canvas";
+    grid-template-areas: "menu" "canvas";
     grid-template-columns: 1fr;
   }
   #menu {
-    grid-area: nav;
+    grid-area: menu;
     z-index: 2;
 
     list-style: none;

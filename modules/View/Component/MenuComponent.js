@@ -2,6 +2,7 @@ import ColorTableComponent from "./ColorTableComponent.js";
 import Types from "../../Model/Types.js"
 import Changes from "../../Event/Changes.js"
 import Mode from "../../Model/Mode.js";
+import Save from "../../Service/Save/Save.js";
 export default class MenuComponent {
     #element;
     #typeSelect;
@@ -12,10 +13,11 @@ export default class MenuComponent {
     #colorTable;
     #eraserButton;
     #drawButton;
-    i need to create a save button;
-    i need to connect that up with the Save function;
-    i need to then do the download stuff;
-    (always make its href equal to the data from the canvas?)
+    #downloadButton;
+    // i need to create a save button;
+    // i need to connect that up with the Save function;
+    // i need to then do the download stuff;
+    // (always make its href equal to the data from the canvas?)
     constructor(element, controller) {
         this.#element = element;
         this.#typeSelect = this.#element.querySelector("#typeSelect")
@@ -34,6 +36,7 @@ export default class MenuComponent {
         this.#undoButton = this.#element.querySelector("#undoButton")
         this.#undoButton.onclick = () => controller.onUndo();
         this.#colorTable = new ColorTableComponent(this.#element.querySelector(".color-table"), controller)
+        this.#downloadButton = this.#element.querySelector("#downloadButton")
     }
     onChange(change, state) {
         switch (change) {
@@ -51,6 +54,7 @@ export default class MenuComponent {
             case Changes.BACKGROUND:  
             case Changes.ERASE_MARK:  
                 this.#colorTable.onChange(change, state);
+                this.#downloadButton.href = Save()
                 break;
             case Changes.STROKE_COLOR: 
                 this.#strokeColorSelect.value = state.strokeColor; 

@@ -18,75 +18,97 @@
 
         </canvas>
     </div>
-    <menu id="menu" class="no-print">
+    <div id="menu" class="no-print">
         <header class="no-print">
-            <img src="assets/logo.jpeg" alt="rainbow color brush strokes" height="32" width="32"/>
+            <img src="assets/logo.jpeg" alt="rainbow color brush strokes" height="32" width="32" />
             <h1>Drawly</h1>
         </header>
         <fieldset class="no-print">
             <legend>Actions</legend>
-            <li class="menu__item">
-                <button id="clearButton" class="menu__button"> <img src="assets/trash.svg" alt="Trashcan" width="32" height="32"><span>Clear
-                        All
-                        Strokes</span></button>
-            </li>
-            <li class="menu__item">
-                <button id="undoButton" class="menu__button"> <img src="assets/undo.svg" alt="Undo stroke" width="32" height="32"> <span>Undo
-                        Stroke</span></button>
-            </li>
+            <menu>
+
+                <li class="menu__item">
+                    <a id="downloadButton" download="drawly.png"> <button class="menu__button"> <img
+                                src="assets/download.svg" alt="Download" width="32" height="32"> <span>Download
+                                Image</span></button></a>
+                </li>
+                <li class="menu__item">
+                    <button id="clearButton" class="menu__button"> <img src="assets/trash.svg" alt="Trashcan" width="32"
+                            height="32"><span>Clear
+                            All
+                            Strokes</span></button>
+                </li>
+                <li class="menu__item">
+                    <button id="undoButton" class="menu__button"> <img src="assets/undo.svg" alt="Undo stroke"
+                            width="32" height="32"> <span>Undo
+                            Stroke</span></button>
+                </li>
+
+            </menu>
         </fieldset>
         <fieldset class="no-print">
             <legend>Background</legend>
-            <li class="menu__item">
-                <label>
-                    <span class="label__text">Color</span>
-                    <input type="color" class="menu__input" id="backgroundColorSelect" />
-                </label>
-            </li>
+
+            <menu>
+                <li class="menu__item">
+                    <label>
+                        <span class="label__text">Color</span>
+                        <input type="color" class="menu__input" id="backgroundColorSelect" />
+                    </label>
+                </li>
         </fieldset>
+
+        </menu>
         <fieldset class="no-print">
             <legend>Mode</legend>
 
-            <li class="menu__item">
-                <button id="eraserButton" class="menu__button"><img src="assets/eraser.svg" height="32"
-                        width="32" />
-                    <span>Erase</span></button>
-            </li>
-            <li class="menu__item">
-                <button id="drawButton" class="menu__button button--active">
-                    <img src="assets/pencil.svg" height="32" width="32" />
-                    <span>Draw</span></button>
-            </li>
+            <menu>
+                <li class="menu__item">
+                    <button id="eraserButton" class="menu__button"><img src="assets/eraser.svg" height="32"
+                            width="32" alt="eraser" />
+                        <span>Erase</span></button>
+                </li>
+                <li class="menu__item">
+                    <button id="drawButton" class="menu__button button--active">
+                        <img src="assets/pencil.svg" height="32" width="32" alt="pencil"/>
+                        <span>Draw</span></button>
+                </li>
+
+            </menu>
         </fieldset class="no-print">
         <fieldset class="no-print">
             <legend>Stroke</legend>
-            <li class="menu__item">
-                <label>
-                    <span class="label__text">Type</span>
-                    <select class="menu__input" id="typeSelect">
 
-                    </select>
-                </label>
-            </li>
-            <li class="menu__item">
-                <label>
-                    <span class="label__text">Color</span>
-                    <input class="menu__input" type="color" id="strokeColorSelect" />
-                </label>
-            </li>
-        <!-- </fieldset>
+            <menu>
+                <li class="menu__item">
+                    <label>
+                        <span class="label__text">Type</span>
+                        <select class="menu__input" id="typeSelect">
+
+                        </select>
+                    </label>
+                </li>
+                <li class="menu__item">
+                    <label>
+                        <span class="label__text">Color</span>
+                        <input class="menu__input" type="color" id="strokeColorSelect" />
+                    </label>
+                </li>
+                <!-- </fieldset>
         <fieldset class="no-print">
             <legend>
                 Used Colors
             </legend> -->
-            <li class="color-table menu__item">
+                <li class="color-table menu__item">
 
-            </li>
+                </li>
+
+            </menu>
         </fieldset>
-        
 
 
-    </menu>
+
+    </div>
 </body>
 
 </html>

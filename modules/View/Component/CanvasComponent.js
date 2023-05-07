@@ -50,19 +50,19 @@ export default class CanvasView {
   #pen;
   constructor(element, controller) {
     this.#element = element;
-    this.#context = this.#element.getContext("2d");
+    this.#context = this.#element.getContext("2d", { alpha: false });
     this.#pen = new Pen((x, y, offsetX, offsetY, strokeGroupId) =>
       controller.onMarkAdded(x, y, offsetX, offsetY, strokeGroupId)
     );
 
     this.#element.addEventListener("mousedown", (e) => this.#pen.onStarted(e));
-    this.#element.addEventListener("touchstart", (e) => this.#pen.onStarted(e));
+    // this.#element.addEventListener("touchstart", (e) => this.#pen.onStarted(e));
     this.#element.addEventListener("mousemove", (e) => this.#pen.onMoving(e));
-    this.#element.addEventListener("touchmove", (e) => this.#pen.onMoving(e));
+    // this.#element.addEventListener("touchmove", (e) => this.#pen.onMoving(e));
     this.#element.addEventListener("mouseup", (e) => this.#pen.onDone(e));
-    this.#element.addEventListener("touchend", (e) => this.#pen.onDone(e));
+    // this.#element.addEventListener("touchend", (e) => this.#pen.onDone(e));
     this.#element.addEventListener("mouseleave", (e) => this.#pen.onDone(e));
-    this.#element.addEventListener("touchcancel", (e) => this.#pen.onDone(e));
+    // this.#element.addEventListener("touchcancel", (e) => this.#pen.onDone(e));
   }
   onChange(change, state) {
     const { background, marks, mode } = state;
