@@ -56,9 +56,13 @@ export default class CanvasView {
     );
 
     this.#element.addEventListener("mousedown", (e) => this.#pen.onStarted(e));
+    this.#element.addEventListener("touchstart", (e) => this.#pen.onStarted(e));
     this.#element.addEventListener("mousemove", (e) => this.#pen.onMoving(e));
+    this.#element.addEventListener("touchmove", (e) => this.#pen.onMoving(e));
     this.#element.addEventListener("mouseup", (e) => this.#pen.onDone(e));
+    this.#element.addEventListener("touchend", (e) => this.#pen.onDone(e));
     this.#element.addEventListener("mouseleave", (e) => this.#pen.onDone(e));
+    this.#element.addEventListener("touchcancel", (e) => this.#pen.onDone(e));
   }
   onChange(change, state) {
     const { background, marks, mode } = state;

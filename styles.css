@@ -15,9 +15,24 @@ html {
 }
 
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#menu {
+  grid-area: nav;
+  z-index: 2;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  row-gap: 2px;
+  width: 10rem;
+  margin: 0;
+  padding: 0;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 #canvasContainer {
@@ -29,26 +44,6 @@ header {
 }
 
 #canvas {
-}
-
-#menu {
-  grid-area: nav;
-  z-index: 2;
-
-  list-style: none;
-
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-
-  row-gap: 2px;
-
-  width: 10rem;
-  margin: 0;
-  padding: 0;
-
-  max-height: 100vh;
-  overflow-y: auto;
 }
 
 .color-table {
@@ -63,19 +58,23 @@ header {
 }
 
 .menu__button {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    place-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
 
-    width: 100%;
+  width: 100%;
 }
 
 .menu__input {
-    width: 100%;
+  width: 100%;
+}
+
+.menu__item {
+  margin-bottom: 2px;
 }
 
 .button--active {
-    border: solid green 3px;
+  border: solid green 3px;
 }
 
 .canvas--draw {
@@ -87,5 +86,71 @@ header {
 }
 
 #menu header h1 {
-    text-align: center;
+  text-align: center;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+  body {
+    margin: 0;
+    display: grid;
+    grid-template-areas: "nav canvas";
+    grid-template-columns: 0 100vw;
+  }
+}
+@media screen and (max-width: 600px) {
+  /*TODO*/
+  body {
+    margin: 0;
+    display: grid;
+    grid-template-areas: "nav" "canvas";
+    grid-template-columns: 1fr;
+  }
+  #menu {
+    grid-area: nav;
+    z-index: 2;
+
+    list-style: none;
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    margin: 0;
+    padding: 0;
+
+    align-items: stretch;
+    justify-content: space-around;
+
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+  }
+  .menu__button span {
+    display: none;
+  }
+  .menu__button {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+
+    /* width: 100%; */
+  }
+
+  .color-table {
+    display: none;
+  }
+  #menu header {
+    display: none;
+  }
+
+  fieldset {
+    padding-block-start: 0.25em;
+    padding-inline-start: 0.5em;
+    padding-inline-end: 0.5em;
+    padding-block-end: 0.5em;
+  }
 }

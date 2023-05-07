@@ -12,6 +12,10 @@ export default class MenuComponent {
     #colorTable;
     #eraserButton;
     #drawButton;
+    i need to create a save button;
+    i need to connect that up with the Save function;
+    i need to then do the download stuff;
+    (always make its href equal to the data from the canvas?)
     constructor(element, controller) {
         this.#element = element;
         this.#typeSelect = this.#element.querySelector("#typeSelect")

@@ -9,14 +9,14 @@ export default class Model {
   constructor(
     state = {
       type: Types.THICK,
-      strokeColor: "#ffffff",
+      strokeColor: "#000000",
       marks: [],
-      background: "#000000",
+      background: "#ffffff",
       mode: Mode.DRAW,
     }
   ) {
     this.#observers = [];
-    this.#state = { background: "#000000", ...state };
+    this.#state = state;
   }
   set strokeColor(newColor) {
     this.#state.strokeColor = newColor;
