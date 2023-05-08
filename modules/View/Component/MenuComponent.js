@@ -21,20 +21,20 @@ export default class MenuComponent {
     constructor(element, controller) {
         this.#element = element;
         this.#typeSelect = this.#element.querySelector("#typeSelect")
-        this.#typeSelect.onchange = (e) => controller.onTypeChanged(e.target.value)
+        this.#typeSelect.addEventListener("change",  (e) => controller.onTypeChanged(e.target.value))
         this.#strokeColorSelect = this.#element.querySelector("#strokeColorSelect")
-        this.#strokeColorSelect.onchange = (e) => controller.onStrokeColorChanged(e.target.value)
+        this.#strokeColorSelect.addEventListener("change",  (e) => controller.onStrokeColorChanged(e.target.value))
         this.#backgroundColorSelect = this.#element.querySelector("#backgroundColorSelect")
-        this.#backgroundColorSelect.onchange = (e) => controller.onBackgroundChanged(e.target.value)
+        this.#backgroundColorSelect.addEventListener("change",  (e) => controller.onBackgroundChanged(e.target.value))
         this.#addOptions();
         this.#clearButton = this.#element.querySelector("#clearButton")
-        this.#clearButton.onclick = () => controller.onClear();
+        this.#clearButton.addEventListener("click",  () => controller.onClear());
         this.#eraserButton = this.#element.querySelector("#eraserButton")
-        this.#eraserButton.onclick = () => controller.onErase();
+        this.#eraserButton.addEventListener("click",  () => controller.onErase());
         this.#drawButton = this.#element.querySelector("#drawButton")
-        this.#drawButton.onclick = () => controller.onDraw();
+        this.#drawButton.addEventListener("click",  () => controller.onDraw());
         this.#undoButton = this.#element.querySelector("#undoButton")
-        this.#undoButton.onclick = () => controller.onUndo();
+        this.#undoButton.addEventListener("click",  () => controller.onUndo());
         this.#colorTable = new ColorTableComponent(this.#element.querySelector(".color-table"), controller)
         this.#downloadButton = this.#element.querySelector("#downloadButton")
     }
