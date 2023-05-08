@@ -1,6 +1,5 @@
 import Changes from "../../Event/Changes.js";
 import Mode from "../../Model/Mode.js";
-import IDGenerator from "../../Service/Id/IdGenerator.js";
 
 class Pen {
   #observers;
