@@ -18,12 +18,12 @@ export default class Controller {
     this.#model.background = newValue;
   }
 
-  onMarkAdded(x1, y1, x2, y2, strokeGroupId) {
-    this.#model.addMark(x1, y1, x2, y2, strokeGroupId);
+  onMarkAdded(x1, y1, x2, y2) {
+    this.#model.addMark(x1, y1, x2, y2);
   }
 
-  onStrokeDone(x1, y1, x2, y2, strokeGroupId) {
-    this.onMarkAdded(x1, y1, x2, y2, strokeGroupId);
+  onStrokeDone(x1, y1, x2, y2) {
+    this.onMarkAdded(x1, y1, x2, y2);
     this.#model.finishStroke();
   }
 

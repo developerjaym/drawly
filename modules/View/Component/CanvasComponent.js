@@ -9,7 +9,6 @@ class Pen {
     this.isDrawing = false;
     this.lastX = 0;
     this.lastY = 0;
-    this.strokeGroupId = null;
   }
   subscribe(observer) {
     this.#observers.push(observer);
@@ -18,7 +17,6 @@ class Pen {
     this.x = offsetX;
     this.y = offsetY;
     this.isDrawing = true;
-    this.strokeGroupId = IDGenerator();
   }
   onMoving({ offsetX, offsetY }) {
     if (this.isDrawing) {
@@ -34,12 +32,11 @@ class Pen {
       this.x = 0;
       this.y = 0;
       this.isDrawing = false;
-      this.strokeGroupId = null;
     }
   }
   #notifyAll(offsetX, offsetY, isDone = false) {
     this.#observers.forEach((observer) =>
-      observer(this.x, this.y, offsetX, offsetY, this.strokeGroupId, isDone)
+      observer(this.x, this.y, offsetX, offsetY, isDone)
     );
   }
 }
@@ -51,10 +48,10 @@ export default class CanvasView {
   constructor(element, controller) {
     this.#element = element;
     this.#context = this.#element.getContext("2d", { alpha: false });
-    this.#pen = new Pen((x, y, offsetX, offsetY, strokeGroupId, isDone) =>
+    this.#pen = new Pen((x, y, offsetX, offsetY, isDone) =>
       isDone
-      ? controller.onStrokeDone(x, y, offsetX, offsetY, strokeGroupId)
-      : controller.onMarkAdded(x, y, offsetX, offsetY, strokeGroupId)
+      ? controller.onStrokeDone(x, y, offsetX, offsetY)
+      : controller.onMarkAdded(x, y, offsetX, offsetY)
     );
 
     this.#element.addEventListener("mousedown", (e) => this.#pen.onStarted(e));

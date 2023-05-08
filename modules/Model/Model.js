@@ -13,6 +13,7 @@ export default class Model {
       marks: [],
       background: "#ffffff",
       mode: Mode.DRAW,
+      currentId: 0
     }
   ) {
     this.#observers = [];
@@ -38,32 +39,19 @@ export default class Model {
     this.#notifyAll(Changes.MODE);
   }
 
-  addMark(x1, y1, x2, y2, strokeGroupId) {
+  addMark(x1, y1, x2, y2) {
     switch (this.#state.mode) {
       case Mode.DRAW:
-        this.#state.marks.push(
-          new Mark(
-            x1,
-            y1,
-            x2,
-            y2,
-            strokeGroupId,
-            this.#state.type,
-            this.#state.strokeColor
-          )
-        );
-        this.#notifyAll(Changes.NEW_MARK);
+        this.#drawMark(x1, y1, x2, y2);
         break;
       case Mode.ERASER:
-        this.#state.marks = this.#state.marks.filter(
-          (mark) => !Mark.intersects(mark, x1, y1, x2, y2)
-        );
-        this.#notifyAll(Changes.ERASE_MARK);
+        this.#eraseMark(x1, y1, x2, y2);
         break;
     }
   }
 
   finishStroke() {
+    this.#state.currentId++;
     this.#notifyAll(Changes.STROKE_DONE);
   }
 
@@ -89,6 +77,26 @@ export default class Model {
   subscribe(observer) {
     this.#observers.push(observer);
     observer.onChange(Changes.START, structuredClone(this.#state));
+  }
+
+  #drawMark(x1, y1, x2, y2) {
+    this.#state.marks.push({
+      x1,
+      y1,
+      x2,
+      y2,
+      strokeGroupId: this.#state.currentId,
+      type: this.#state.type,
+      color: this.#state.strokeColor,
+    });
+    this.#notifyAll(Changes.NEW_MARK);
+  }
+
+  #eraseMark(x1, y1, x2, y2) {
+    this.#state.marks = this.#state.marks.filter(
+      (mark) => !Mark.intersects(mark, x1, y1, x2, y2)
+    );
+    this.#notifyAll(Changes.ERASE_MARK);
   }
 
   #notifyAll(change) {
