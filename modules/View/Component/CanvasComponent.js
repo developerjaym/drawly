@@ -112,14 +112,14 @@ export default class CanvasView {
   #drawLine({ x1, y1, x2, y2, type, color }) {
     this.#context.fillStyle = color;
     this.#context.strokeStyle = color;
-    this.#context.lineWidth = type.width;
+    this.#context.lineWidth = type.width * 1.5;
     // fill a circle
     this.#context.beginPath();
     this.#context.ellipse(
-      x1,
-      y1,
-      type.width / 12,
-      type.width / 12,
+      x2,
+      y2,
+      type.width / 24,
+      type.width / 24,
       Math.PI,
       0,
       2 * Math.PI

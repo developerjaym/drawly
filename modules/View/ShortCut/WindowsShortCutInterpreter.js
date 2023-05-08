@@ -1,8 +1,11 @@
 import ShortCuts from "./ShortCuts.js";
 export default class WindowShortCutInterpreter {
     interpret(e) {
-        if (e.key === "Meta" && e.keyCode === 91) {
+        if (e.ctrlKey && e.key === "z") {
             return ShortCuts.UNDO;
+        }
+        else if (e.ctrlKey && e.key === "d") {
+            return ShortCuts.CLEAR_ALL_STROKES;
         }
         return ShortCuts.NONE;
     }

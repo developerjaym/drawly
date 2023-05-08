@@ -7,10 +7,10 @@ export default class ShortCutManager {
         const interpreter = navigator.userAgentData.platform.includes("mac") ? new MacShortCutInterpreter() : new WindowShortCutInterpreter();
         const commands = {
             [ShortCuts.UNDO]: () => controller.onUndo(),
+            [ShortCuts.CLEAR_ALL_STROKES]: () => controller.onClear(),
             [ShortCuts.NONE]: () => console.log("Not a shortcut")
         }
         document.addEventListener("keyup", (e) => {
-            // TODO find a better design pattern
             commands[interpreter.interpret(e)]();
         })
     }
