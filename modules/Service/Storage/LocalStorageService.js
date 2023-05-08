@@ -1,7 +1,16 @@
+import Changes from "../../Event/Changes.js";
+
 export default class LocalStorageService {
   static #KEY = "drawly";
-  async onChange(change, state) {
-    await this.#save(state)
+  onChange(change, state) {
+    switch (change) {
+      case Changes.NEW_MARK:
+      case Changes.START:
+      case Changes.ERASE_MARK:
+        return;
+      default:
+        this.#save(state);
+    }
   }
   async load() {
     const savedData = localStorage.getItem(LocalStorageService.#KEY);
@@ -9,10 +18,9 @@ export default class LocalStorageService {
       return JSON.parse(savedData);
     }
   }
-  async #save(state) {
-    localStorage.setItem(
-      LocalStorageService.#KEY,
-      JSON.stringify(state)
-    );
+  #save(state) {
+    setTimeout(() =>
+      localStorage.setItem(LocalStorageService.#KEY, JSON.stringify(state))
+    , 0);
   }
 }

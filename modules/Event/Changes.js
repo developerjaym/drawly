@@ -20,6 +20,9 @@ export default class Changes {
     static get ERASE_MARK() {
         return "ERASE_MARK";
     }
+    static get STROKE_DONE() {
+        return "STROKE_DONE";
+    }
     static get MODE() {
         return "MODE";
     }

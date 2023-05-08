@@ -22,6 +22,11 @@ export default class Controller {
     this.#model.addMark(x1, y1, x2, y2, strokeGroupId);
   }
 
+  onStrokeDone(x1, y1, x2, y2, strokeGroupId) {
+    this.onMarkAdded(x1, y1, x2, y2, strokeGroupId);
+    this.#model.finishStroke();
+  }
+
   onErase() {
     this.#model.mode = Mode.ERASER;
   }

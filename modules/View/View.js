@@ -18,7 +18,7 @@ export default class View {
     );
   }
   onChange(change, state) {
-    this.#canvas.onChange(change, structuredClone(state));
-    this.#menu.onChange(change, structuredClone(state));
+    this.#canvas.onChange(change, (state));
+    this.#menu.onChange(change, (state));
   }
 }

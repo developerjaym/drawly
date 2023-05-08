@@ -63,6 +63,10 @@ export default class Model {
     }
   }
 
+  finishStroke() {
+    this.#notifyAll(Changes.STROKE_DONE);
+  }
+
   clear() {
     this.#state.marks = [];
     this.#notifyAll(Changes.CLEAR_MARKS);
@@ -88,8 +92,9 @@ export default class Model {
   }
 
   #notifyAll(change) {
+    // const stateClone = structuredClone(this.#state)
     this.#observers.forEach((observer) =>
-      observer.onChange(change, structuredClone(this.#state))
+      observer.onChange(change, this.#state)
     );
   }
 }

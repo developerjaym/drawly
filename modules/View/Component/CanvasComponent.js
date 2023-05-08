@@ -29,7 +29,7 @@ class Pen {
   }
   onDone({ offsetX, offsetY }) {
     if (this.isDrawing) {
-      this.#notifyAll(offsetX, offsetY);
+      this.#notifyAll(offsetX, offsetY, true);
 
       this.x = 0;
       this.y = 0;
@@ -37,9 +37,9 @@ class Pen {
       this.strokeGroupId = null;
     }
   }
-  #notifyAll(offsetX, offsetY) {
+  #notifyAll(offsetX, offsetY, isDone = false) {
     this.#observers.forEach((observer) =>
-      observer(this.x, this.y, offsetX, offsetY, this.strokeGroupId)
+      observer(this.x, this.y, offsetX, offsetY, this.strokeGroupId, isDone)
     );
   }
 }
@@ -51,8 +51,10 @@ export default class CanvasView {
   constructor(element, controller) {
     this.#element = element;
     this.#context = this.#element.getContext("2d", { alpha: false });
-    this.#pen = new Pen((x, y, offsetX, offsetY, strokeGroupId) =>
-      controller.onMarkAdded(x, y, offsetX, offsetY, strokeGroupId)
+    this.#pen = new Pen((x, y, offsetX, offsetY, strokeGroupId, isDone) =>
+      isDone
+      ? controller.onStrokeDone(x, y, offsetX, offsetY, strokeGroupId)
+      : controller.onMarkAdded(x, y, offsetX, offsetY, strokeGroupId)
     );
 
     this.#element.addEventListener("mousedown", (e) => this.#pen.onStarted(e));
@@ -91,7 +93,7 @@ export default class CanvasView {
         marks.forEach((mark) => this.#drawLine(mark));
         break;
       case Changes.NEW_MARK:
-        this.#drawLine(marks.pop());
+        this.#drawLine(marks[marks.length - 1]);
         break;
       case Changes.CLEAR_MARKS:
         this.#context.clearRect(
