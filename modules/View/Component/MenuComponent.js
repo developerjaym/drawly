@@ -48,11 +48,10 @@ export default class MenuComponent {
                 this.#backgroundColorSelect.value = state.background;
                 this.#typeSelect.value = JSON.stringify(state.type)
                 this.#toggleModeButtons(state.mode)
-            case Changes.NEW_MARK:
+            case Changes.STROKE_DONE:
             case Changes.CLEAR_MARKS:
             case Changes.UNDO:
             case Changes.BACKGROUND:  
-            case Changes.ERASE_MARK:  
                 this.#colorTable.onChange(change, state);
                 this.#downloadButton.href = Save()
                 break;
