@@ -16,6 +16,7 @@ class Pen {
     this.x = offsetX;
     this.y = offsetY;
     this.isDrawing = true;
+    console.log(this.x, this.y);
   }
   onMoving({ offsetX, offsetY }) {
     if (this.isDrawing) {
@@ -40,6 +41,13 @@ class Pen {
   }
 }
 
+const touchEventConverter = (touch, target) => {
+  return {
+    offsetX: Math.floor(touch.clientX) - target.offsetLeft,
+    offsetY: Math.floor(touch.clientY) - target.offsetTop,
+  };
+};
+
 export default class CanvasView {
   #element;
   #context;
@@ -49,32 +57,43 @@ export default class CanvasView {
     this.#context = this.#element.getContext("2d", { alpha: false });
     this.#pen = new Pen((x, y, offsetX, offsetY, isDone) =>
       isDone
-      ? controller.onStrokeDone(x, y, offsetX, offsetY)
-      : controller.onMarkAdded(x, y, offsetX, offsetY)
+        ? controller.onStrokeDone(x, y, offsetX, offsetY)
+        : controller.onMarkAdded(x, y, offsetX, offsetY)
     );
 
     this.#element.addEventListener("mousedown", (e) => this.#pen.onStarted(e));
-    // this.#element.addEventListener("touchstart", (e) => this.#pen.onStarted(e));
+    this.#element.addEventListener("touchstart", (e) => {
+      console.log("touchstart", e);
+      e.preventDefault();
+      this.#pen.onStarted(touchEventConverter(e.touches[0], e.target));
+    });
     this.#element.addEventListener("mousemove", (e) => this.#pen.onMoving(e));
-    // this.#element.addEventListener("touchmove", (e) => this.#pen.onMoving(e));
+    this.#element.addEventListener("touchmove", (e) => {
+      console.log("touchmove", e);
+      e.preventDefault();
+      this.#pen.onMoving(touchEventConverter(e.touches[0], e.target));
+    });
     this.#element.addEventListener("mouseup", (e) => this.#pen.onDone(e));
-    // this.#element.addEventListener("touchend", (e) => this.#pen.onDone(e));
+    this.#element.addEventListener("touchend", (e) => {
+      console.log("end", e);
+      e.preventDefault();
+      this.#pen.onDone(touchEventConverter(e.changedTouches[0], e.target));
+    });
     this.#element.addEventListener("mouseleave", (e) => this.#pen.onDone(e));
-    // this.#element.addEventListener("touchcancel", (e) => this.#pen.onDone(e));
+    this.#element.addEventListener("touchcancel", (e) => {
+      e.preventDefault();
+      this.#pen.onDone(touchEventConverter(e.changedTouches[0], e.target));
+    });
   }
   onChange(change, state) {
     const { background, marks, mode } = state;
 
     switch (change) {
-      case Changes.START:
       case Changes.MODE:
-        if (mode === Mode.DRAW) {
-          this.#element.classList.add("canvas--draw");
-          this.#element.classList.remove("canvas--erase");
-        } else {
-          this.#element.classList.add("canvas--erase");
-          this.#element.classList.remove("canvas--draw");
-        }
+        this.#setMode(mode);
+        break;
+      case Changes.START:
+        this.#setMode(mode);
       case Changes.UNDO:
       case Changes.BACKGROUND:
       case Changes.START:
@@ -133,5 +152,14 @@ export default class CanvasView {
     this.#context.lineTo(x2, y2);
     this.#context.stroke();
     this.#context.closePath();
+  }
+  #setMode(mode) {
+    if (mode === Mode.DRAW) {
+      this.#element.classList.add("canvas--draw");
+      this.#element.classList.remove("canvas--erase");
+    } else {
+      this.#element.classList.add("canvas--erase");
+      this.#element.classList.remove("canvas--draw");
+    }
   }
 }

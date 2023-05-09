@@ -61,17 +61,14 @@ export default class Model {
   }
 
   undo() {
-    if (this.#state.marks.length) {
-      // ignore undo commands if nothing to undo
-      // find strokeGroupId of last mark
+      // find strokeGroupId of last mark (ignore undo commands if nothing to undo)
       const lastStrokeGroupId =
-        this.#state.marks[this.#state.marks.length - 1].strokeGroupId;
+        this.#state.marks[this.#state.marks.length - 1]?.strokeGroupId;
       // filter out all marks with that same strokeGroupId
       this.#state.marks = this.#state.marks.filter(
         (mark) => mark.strokeGroupId !== lastStrokeGroupId
       );
       this.#notifyAll(Changes.UNDO);
-    }
   }
 
   subscribe(observer) {
@@ -100,7 +97,6 @@ export default class Model {
   }
 
   #notifyAll(change) {
-    // const stateClone = structuredClone(this.#state)
     this.#observers.forEach((observer) =>
       observer.onChange(change, this.#state)
     );

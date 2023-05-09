@@ -165,4 +165,8 @@ menu {
     padding-inline-end: 0.5em;
     padding-block-end: 0.5em;
   }
+  #canvasContainer {
+    touch-action: none;
+    overflow: auto;
+  }
 }
