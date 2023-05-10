@@ -16,7 +16,6 @@ class Pen {
     this.x = offsetX;
     this.y = offsetY;
     this.isDrawing = true;
-    console.log(this.x, this.y);
   }
   onMoving({ offsetX, offsetY }) {
     if (this.isDrawing) {
@@ -63,19 +62,16 @@ export default class CanvasView {
 
     this.#element.addEventListener("mousedown", (e) => this.#pen.onStarted(e));
     this.#element.addEventListener("touchstart", (e) => {
-      console.log("touchstart", e);
       e.preventDefault();
       this.#pen.onStarted(touchEventConverter(e.touches[0], e.target));
     });
     this.#element.addEventListener("mousemove", (e) => this.#pen.onMoving(e));
     this.#element.addEventListener("touchmove", (e) => {
-      console.log("touchmove", e);
       e.preventDefault();
       this.#pen.onMoving(touchEventConverter(e.touches[0], e.target));
     });
     this.#element.addEventListener("mouseup", (e) => this.#pen.onDone(e));
     this.#element.addEventListener("touchend", (e) => {
-      console.log("end", e);
       e.preventDefault();
       this.#pen.onDone(touchEventConverter(e.changedTouches[0], e.target));
     });
