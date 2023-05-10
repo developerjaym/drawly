@@ -125,15 +125,16 @@ export default class CanvasView {
 
   #drawLine({ x1, y1, x2, y2, type, color }) {
     this.#context.fillStyle = color;
-    this.#context.strokeStyle = color;
-    this.#context.lineWidth = type.width * 1.5;
+    
+    this.#context.lineWidth = type.width;
+    this.#context.strokeStyle = "transparent";
     // fill a circle
     this.#context.beginPath();
     this.#context.ellipse(
       x2,
       y2,
-      type.width / 24,
-      type.width / 24,
+      type.width / 2,
+      type.width / 2,
       Math.PI,
       0,
       2 * Math.PI
@@ -142,7 +143,7 @@ export default class CanvasView {
     this.#context.stroke();
 
     // draw a line
-
+    this.#context.strokeStyle = color;
     this.#context.beginPath();
     this.#context.moveTo(x1, y1);
     this.#context.lineTo(x2, y2);
