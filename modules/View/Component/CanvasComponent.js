@@ -1,5 +1,7 @@
 import Changes from "../../Event/Changes.js";
 import Mode from "../../Model/Mode.js";
+import subscribeToResize from "../Resize/ResizeListener.js";
+
 
 class Pen {
   #observers;
@@ -47,12 +49,40 @@ const touchEventConverter = (touch, target) => {
   };
 };
 
+class CanvasResizeListener {
+  #previousHeight = 1080;
+  #previousWidth = 1920;
+  static #tolerance = 0;
+  #container;
+  constructor(container, listener) {
+    this.#container = container;
+    
+    window.addEventListener('resize', (event) => {
+      // do stuff here
+      const {clientHeight, clientWidth} = this.#container;
+      if(Math.abs(clientHeight - this.#previousHeight) > CanvasResizeListener.#tolerance || Math.abs(clientWidth - this.#previousWidth) > CanvasResizeListener.#tolerance) {
+        console.log("changes", clientHeight, clientWidth)
+        this.#previousHeight = clientHeight;
+        this.#previousWidth = clientWidth;
+        listener(clientWidth, clientHeight)
+      }
+    });
+  }
+}
+
 export default class CanvasView {
   #element;
   #context;
   #pen;
+  #lastState;
   constructor(element, controller) {
     this.#element = element;
+    subscribeToResize(() => {
+      const {clientHeight, clientWidth} = this.#element.parentElement;
+      this.#element.height = clientHeight;
+      this.#element.width = clientWidth;
+      this.onChange(Changes.BACKGROUND, this.#lastState);
+    })
     this.#context = this.#element.getContext("2d", { alpha: false });
     this.#pen = new Pen((x, y, offsetX, offsetY, isDone) =>
       isDone
@@ -82,6 +112,7 @@ export default class CanvasView {
     });
   }
   onChange(change, state) {
+    this.#lastState = state; // caching
     const { background, marks, mode } = state;
 
     switch (change) {
@@ -92,7 +123,6 @@ export default class CanvasView {
         this.#setMode(mode);
       case Changes.UNDO:
       case Changes.BACKGROUND:
-      case Changes.START:
       case Changes.ERASE_MARK:
         this.#context.clearRect(
           0,
