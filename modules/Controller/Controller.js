@@ -18,6 +18,10 @@ export default class Controller {
     this.#model.background = newValue;
   }
 
+  onBackgroundImageChanged(newValue) {
+    this.#model.backgroundImage = newValue;
+  }
+
   onMarkAdded(x1, y1, x2, y2) {
     this.#model.addMark(x1, y1, x2, y2);
   }

@@ -3,6 +3,21 @@ import Types from "../../Model/Types.js"
 import Changes from "../../Event/Changes.js"
 import Mode from "../../Model/Mode.js";
 import Save from "../../Service/Save/Save.js";
+
+function readImage(file, callback) {
+    // Check if the file is an image.
+    if (file.type && !file.type.startsWith('image/')) {
+      console.error('File is not an image.', file.type, file);
+      return;
+    }
+  
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+      callback(event.target.result)
+    });
+    reader.readAsDataURL(file);
+  }
+
 export default class MenuComponent {
     #element;
     #typeSelect;
@@ -14,6 +29,7 @@ export default class MenuComponent {
     #eraserButton;
     #drawButton;
     #downloadButton;
+    #backgroundImageSelect;
     // i need to create a save button;
     // i need to connect that up with the Save function;
     // i need to then do the download stuff;
@@ -26,6 +42,8 @@ export default class MenuComponent {
         this.#strokeColorSelect.addEventListener("change",  (e) => controller.onStrokeColorChanged(e.target.value))
         this.#backgroundColorSelect = this.#element.querySelector("#backgroundColorSelect")
         this.#backgroundColorSelect.addEventListener("change",  (e) => controller.onBackgroundChanged(e.target.value))
+        this.#backgroundImageSelect = this.#element.querySelector("#backgroundImageSelect")
+        this.#backgroundImageSelect.addEventListener("change",  (e) => readImage(e.target.files[0], (imageData) => controller.onBackgroundImageChanged(imageData)))
         this.#addOptions();
         this.#clearButton = this.#element.querySelector("#clearButton")
         this.#clearButton.addEventListener("click",  () => controller.onClear());

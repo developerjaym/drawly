@@ -14,6 +14,9 @@ export default class Changes {
     static get BACKGROUND() {
         return "BACKGROUND";
     }
+    static get BACKGROUND_IMAGE() {
+        return "BACKGROUND_IMAGE";
+    }
     static get CLEAR_MARKS() {
         return "CLEAR_MARKS";
     }

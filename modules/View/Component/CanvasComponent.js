@@ -2,7 +2,6 @@ import Changes from "../../Event/Changes.js";
 import Mode from "../../Model/Mode.js";
 import subscribeToResize from "../Resize/ResizeListener.js";
 
-
 class Pen {
   #observers;
   constructor(...observers) {
@@ -56,15 +55,19 @@ class CanvasResizeListener {
   #container;
   constructor(container, listener) {
     this.#container = container;
-    
-    window.addEventListener('resize', (event) => {
+
+    window.addEventListener("resize", (event) => {
       // do stuff here
-      const {clientHeight, clientWidth} = this.#container;
-      if(Math.abs(clientHeight - this.#previousHeight) > CanvasResizeListener.#tolerance || Math.abs(clientWidth - this.#previousWidth) > CanvasResizeListener.#tolerance) {
-        console.log("changes", clientHeight, clientWidth)
+      const { clientHeight, clientWidth } = this.#container;
+      if (
+        Math.abs(clientHeight - this.#previousHeight) >
+          CanvasResizeListener.#tolerance ||
+        Math.abs(clientWidth - this.#previousWidth) >
+          CanvasResizeListener.#tolerance
+      ) {
         this.#previousHeight = clientHeight;
         this.#previousWidth = clientWidth;
-        listener(clientWidth, clientHeight)
+        listener(clientWidth, clientHeight);
       }
     });
   }
@@ -78,11 +81,11 @@ export default class CanvasView {
   constructor(element, controller) {
     this.#element = element;
     subscribeToResize(() => {
-      const {clientHeight, clientWidth} = this.#element.parentElement;
+      const { clientHeight, clientWidth } = this.#element.parentElement;
       this.#element.height = clientHeight;
       this.#element.width = clientWidth;
       this.onChange(Changes.BACKGROUND, this.#lastState);
-    })
+    });
     this.#context = this.#element.getContext("2d", { alpha: false });
     this.#pen = new Pen((x, y, offsetX, offsetY, isDone) =>
       isDone
@@ -113,49 +116,52 @@ export default class CanvasView {
   }
   onChange(change, state) {
     this.#lastState = state; // caching
-    const { background, marks, mode } = state;
+    const { background, marks, mode, backgroundImage } = state;
 
     switch (change) {
       case Changes.MODE:
         this.#setMode(mode);
         break;
-      case Changes.START:
-        this.#setMode(mode);
-      case Changes.UNDO:
+      case Changes.BACKGROUND_IMAGE:
       case Changes.BACKGROUND:
+      case Changes.UNDO:
       case Changes.ERASE_MARK:
+      case Changes.START:  
+      case Changes.CLEAR_MARKS:
+        this.#setMode(mode);
         this.#context.clearRect(
           0,
           0,
           this.#element.width,
           this.#element.height
         );
-        this.#drawBackground(background);
-        marks.forEach((mark) => this.#drawLine(mark));
+        //background image is asychronous, sadly (the image needs to load...)
+        this.#drawBackground(background, backgroundImage, () =>
+          marks.forEach((mark) => this.#drawLine(mark))
+        );
         break;
       case Changes.NEW_MARK:
-        this.#drawLine(marks[marks.length - 1]);
-        break;
-      case Changes.CLEAR_MARKS:
-        this.#context.clearRect(
-          0,
-          0,
-          this.#element.width,
-          this.#element.height
-        );
-        this.#drawBackground(background);
-        break;
+          this.#drawLine(marks[marks.length - 1]);
+          break;  
     }
   }
 
-  #drawBackground(color) {
+  #drawBackground(color, image, whenDone) {
     this.#context.fillStyle = color;
     this.#context.fillRect(0, 0, this.#element.width, this.#element.height);
+    if (image) {
+      const imageElement = document.createElement("img");
+      imageElement.src = image;
+      imageElement.onload = () => {
+        this.#context.drawImage(imageElement, 0, 0);
+        whenDone();
+      };
+    }
   }
 
   #drawLine({ x1, y1, x2, y2, type, color }) {
     this.#context.fillStyle = color;
-    
+
     this.#context.lineWidth = type.width;
     this.#context.strokeStyle = "transparent";
     // fill a circle

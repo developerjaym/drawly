@@ -12,6 +12,7 @@ export default class Model {
       strokeColor: "#000000",
       marks: [],
       background: "#ffffff",
+      backgroundImage: null,
       mode: Mode.DRAW,
       currentId: 0
     }
@@ -32,6 +33,11 @@ export default class Model {
   set background(newColor) {
     this.#state.background = newColor;
     this.#notifyAll(Changes.BACKGROUND);
+  }
+
+  set backgroundImage(newImage) {
+    this.#state.backgroundImage = newImage;
+    this.#notifyAll(Changes.BACKGROUND_IMAGE);
   }
 
   set mode(newMode) {

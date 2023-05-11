@@ -26,10 +26,7 @@ class ResizeController {
 
 const resizeModel = new ResizeModel();
 const resizeController = new ResizeController(resizeModel);
-window.addEventListener("resize", (event) => {
-  // console.log(event);
-  resizeController.onChange();
-});
+window.addEventListener("resize", (event) => resizeController.onChange());
 
 export default function subscribe(newObserver) {
   resizeModel.subscribe(newObserver);
