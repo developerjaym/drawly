@@ -29,16 +29,21 @@ menu {
   padding: 0;
 }
 
+fieldset {
+  border: solid gray 1px;
+  border-radius: 4px;
+}
+
 #menu {
   grid-area: menu;
   z-index: 2;
- 
+
   display: flex;
   flex-direction: column;
   align-items: stretch;
   row-gap: 2px;
   width: 10rem;
-  
+
   max-height: 100vh;
   overflow-y: auto;
 }

@@ -56,7 +56,7 @@ I did pretty well with good coding practices at the beginning but then a few fea
 - I used Lighthouse in the Chrome devTools to audit my site. It helped me fix some performance and a11y issues.
 - I used lots of semantic HTML (I've got menu, fieldset, legend, label, header). I still need to do better here, though.
 - When my classes/functions got too big, I split them up. I think I still need to split up my MenuComponent and CanvasComponent. They've gotten sizable.
-- I used OOP extensively. I have a bunch of classes, each with a different purposes. 
+- I used OOP extensively. I have a bunch of classes, each with a different purpose. 
 - My classes have private variables (```#imPrivate```) to prevent unwanted modification.
 - I used static properties of classes (like an Enum). This is to prevent typos, especially in my switch cases.
 
