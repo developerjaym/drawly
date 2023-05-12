@@ -82,6 +82,7 @@ export default class MenuComponent {
     }
     #prepDownload() {
         this.#downloadButton.href = Save()
+        this.#downloadButton.download = `drawly_${new Date().getTime()}.png`
     }
     #addOptions() {
         this.#typeSelect.append(...Types.ALL.map(item => {
