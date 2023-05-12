@@ -3,6 +3,7 @@ import Types from "../../Model/Types.js"
 import Changes from "../../Event/Changes.js"
 import Mode from "../../Model/Mode.js";
 import Save from "../../Service/Save/Save.js";
+import subscribeToResize from "../Resize/ResizeListener.js";
 
 function readImage(file, callback) {
     // Check if the file is an image.
@@ -55,6 +56,8 @@ export default class MenuComponent {
         this.#undoButton.addEventListener("click",  () => controller.onUndo());
         this.#colorTable = new ColorTableComponent(this.#element.querySelector(".color-table"), controller)
         this.#downloadButton = this.#element.querySelector("#downloadButton")
+        this.#downloadButton.addEventListener('click', () => this.#prepDownload())
+        subscribeToResize(() => this.#prepDownload())
     }
     onChange(change, state) {
         switch (change) {
@@ -70,12 +73,15 @@ export default class MenuComponent {
             case Changes.CLEAR_MARKS:
             case Changes.UNDO:
             case Changes.BACKGROUND:  
+            case Changes.BACKGROUND_IMAGE:
                 this.#colorTable.onChange(change, state);
-                this.#downloadButton.href = Save()
                 break;
             case Changes.STROKE_COLOR: 
                 this.#strokeColorSelect.value = state.strokeColor; 
         }
+    }
+    #prepDownload() {
+        this.#downloadButton.href = Save()
     }
     #addOptions() {
         this.#typeSelect.append(...Types.ALL.map(item => {

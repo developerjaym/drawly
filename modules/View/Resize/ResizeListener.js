@@ -30,4 +30,7 @@ window.addEventListener("resize", (event) => resizeController.onChange());
 
 export default function subscribe(newObserver) {
   resizeModel.subscribe(newObserver);
+  // kick it off in a second to get the right size
+  // TODO find a better way to do all this
+  setTimeout(()=>resizeController.onChange(),1_000);
 }
