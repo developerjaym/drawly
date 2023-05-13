@@ -23,11 +23,13 @@ export default class Model {
   set strokeColor(newColor) {
     this.#state.strokeColor = newColor;
     this.#notifyAll(Changes.STROKE_COLOR);
+    this.mode = Mode.DRAW;
   }
 
   set type(newType) {
     this.#state.type = newType;
     this.#notifyAll(Changes.TYPE);
+    this.mode = Mode.DRAW;
   }
 
   set background(newColor) {
