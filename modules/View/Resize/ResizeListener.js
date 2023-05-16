@@ -1,13 +1,25 @@
 class ResizeModel {
   #observers;
+  #innerWidth;
+  #innerHeight;
+  static #buffer = 0;
   constructor() {
+    this.#innerWidth = 0;
+    this.#innerHeight = 0;
     this.#observers = [];
   }
   subscribe(observer) {
     this.#observers.push(observer);
   }
-  onChange() {
-    this.#notifyAll();
+  onChange(newInnerWidth, newInnerHeight) {
+    if(this.#exceedsBuffer(newInnerWidth, this.#innerWidth) || this.#exceedsBuffer(newInnerHeight, this.#innerHeight)) {
+      this.#innerHeight = newInnerHeight;
+      this.#innerWidth = newInnerWidth;
+      this.#notifyAll();
+    }
+  }
+  #exceedsBuffer(newLength, oldLength) {
+    return Math.abs(newLength - oldLength) >= ResizeModel.#buffer;
   }
   #notifyAll() {
     this.#observers.forEach((observer) => observer());
@@ -19,18 +31,17 @@ class ResizeController {
   constructor(model) {
     this.#model = model;
   }
-  onChange() {
-    this.#model.onChange();
+  onChange({innerWidth, innerHeight}) {
+    this.#model.onChange(innerWidth, innerHeight);
   }
 }
 
 const resizeModel = new ResizeModel();
 const resizeController = new ResizeController(resizeModel);
-window.addEventListener("resize", (event) => resizeController.onChange());
+window.addEventListener("resize", (event) => resizeController.onChange(event.currentTarget));
 
 export default function subscribe(newObserver) {
   resizeModel.subscribe(newObserver);
   // kick it off in a second to get the right size
-  // TODO find a better way to do all this
-  setTimeout(()=>resizeController.onChange(),1_000);
+  setTimeout(()=>resizeController.onChange({innerWidth: window.innerWidth, innerHeight: window.innerHeight}),0);
 }
