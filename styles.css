@@ -121,11 +121,11 @@ fieldset {
 }
 
 .canvas--draw {
-  cursor: url(assets/pencil.svg) 0 var(--cursor-size), auto;
+  cursor: url(assets/pencil.png) 0 var(--cursor-size), auto;
 }
 
 .canvas--erase {
-  cursor: url(assets/eraser.svg) 0 var(--cursor-size), auto;
+  cursor: url(assets/eraser.png) 0 var(--cursor-size), auto;
 }
 
 #menu header h1 {
