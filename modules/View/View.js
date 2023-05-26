@@ -1,4 +1,3 @@
-import Changes from "../Event/Changes.js";
 import CanvasComponent from "./Component/CanvasComponent.js";
 import MenuComponent from "./Component/MenuComponent.js";
 

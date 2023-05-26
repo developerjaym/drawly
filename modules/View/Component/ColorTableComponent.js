@@ -43,7 +43,7 @@ export default class ColorTableComponent {
     });
   }
   #findColors(marks) {
-    return [...new Set(marks.map((mark) => mark.color))];
+    return [...new Set(marks.filter(mark => !mark.erased).map((mark) => mark.color))];
   }
   #buildColorCell(color) {
     const cell = document.createElement("button");

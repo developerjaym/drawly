@@ -1,4 +1,3 @@
-import Mode from "../Model/Mode.js";
 
 export default class Controller {
   #model;
@@ -7,7 +6,7 @@ export default class Controller {
   }
 
   onTypeChanged(newValue) {
-    this.#model.type = JSON.parse(newValue);
+    this.#model.type = newValue;
   }
 
   onStrokeColorChanged(newValue) {
@@ -29,13 +28,6 @@ export default class Controller {
   onStrokeDone(x1, y1, x2, y2) {
     this.onMarkAdded(x1, y1, x2, y2);
     this.#model.finishStroke();
-  }
-
-  onErase() {
-    this.#model.mode = Mode.ERASER;
-  }
-  onDraw() {
-    this.#model.mode = Mode.DRAW;
   }
 
   onClear() {

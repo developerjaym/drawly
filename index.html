@@ -48,19 +48,18 @@
 
                 <li class="menu__item">
                     <a id="downloadButton" download="drawly.png"> <button class="menu__button"> <img
-                                src="assets/download.svg" alt="Download" width="32" height="32"> <span>Download
+                                src="assets/download.svg" alt="Download" width="24" height="24"> <span>Download
                                 Image</span></button></a>
                 </li>
                 <li class="menu__item">
-                    <button id="clearButton" class="menu__button"> <img src="assets/trash.svg" alt="Trashcan" width="32"
-                            height="32"><span>Clear
-                            All
-                            Strokes</span></button>
+                    <button id="clearButton" class="menu__button"> <img src="assets/trash.svg" alt="Trashcan" width="24"
+                            height="24"><span>Clear
+                            Foreground</span></button>
                 </li>
                 <li class="menu__item">
-                    <button id="undoButton" class="menu__button"> <img src="assets/undo.svg" alt="Undo stroke"
-                            width="32" height="32"> <span>Undo
-                            Stroke</span></button>
+                    <button id="undoButton" class="menu__button"> <img src="assets/undo.svg" alt="Undo"
+                            width="24" height="24"> <span>Undo
+                            </span></button>
                 </li>
 
             </menu>
@@ -78,39 +77,20 @@
                 <li class="menu__item" style="display: none;">
                     <label>
                         <span class="label__text">Image</span>
-                        <input type="file" class="menu__button" id="backgroundImageSelect" accept=".jpg, .jpeg, .png"/>
+                        <input type="file" class="menu__button" id="backgroundImageSelect" accept=".jpg, .jpeg, .png" />
                     </label>
                 </li>
             </menu>
         </fieldset>
-
         <fieldset class="no-print">
-            <legend>Mode</legend>
-
-            <menu>
-                <li class="menu__item">
-                    <button id="eraserButton" class="menu__button"><img src="assets/eraser.svg" height="32" width="32"
-                            alt="eraser" />
-                        <span>Erase</span></button>
-                </li>
-                <li class="menu__item">
-                    <button id="drawButton" class="menu__button button--active">
-                        <img src="assets/pencil.svg" height="32" width="32" alt="pencil" />
-                        <span>Draw</span></button>
-                </li>
-
-            </menu>
-        </fieldset>
-        <fieldset class="no-print">
-            <legend>Stroke</legend>
+            <legend>Foreground</legend>
 
             <menu>
                 <li class="menu__item">
                     <label>
-                        <span class="label__text">Type</span>
-                        <select class="menu__input" id="typeSelect">
-
-                        </select>
+                        <span class="label__text">Mode</span>
+                        <div id="typeSelect">
+                        </div>
                     </label>
                 </li>
                 <li class="menu__item">
@@ -135,7 +115,7 @@
 
         </canvas>
     </div>
-    
+
 </body>
 
 </html>

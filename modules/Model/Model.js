@@ -1,7 +1,6 @@
 import Types from "./Types.js";
 import Changes from "../Event/Changes.js";
 import Mark from "./Mark.js";
-import Mode from "./Mode.js";
 
 export default class Model {
   #observers;
@@ -13,8 +12,7 @@ export default class Model {
       marks: [],
       background: "#ffffff",
       backgroundImage: null,
-      mode: Mode.DRAW,
-      currentId: 0
+      currentId: 0,
     }
   ) {
     this.#observers = [];
@@ -23,13 +21,11 @@ export default class Model {
   set strokeColor(newColor) {
     this.#state.strokeColor = newColor;
     this.#notifyAll(Changes.STROKE_COLOR);
-    this.mode = Mode.DRAW;
   }
 
   set type(newType) {
     this.#state.type = newType;
     this.#notifyAll(Changes.TYPE);
-    this.mode = Mode.DRAW;
   }
 
   set background(newColor) {
@@ -42,18 +38,13 @@ export default class Model {
     this.#notifyAll(Changes.BACKGROUND_IMAGE);
   }
 
-  set mode(newMode) {
-    this.#state.mode = newMode;
-    this.#notifyAll(Changes.MODE);
-  }
-
   addMark(x1, y1, x2, y2) {
-    switch (this.#state.mode) {
-      case Mode.DRAW:
-        this.#drawMark(x1, y1, x2, y2);
-        break;
-      case Mode.ERASER:
+    switch (this.#state.type.name) {
+      case Types.ERASER.name:
         this.#eraseMark(x1, y1, x2, y2);
+        break;
+      default:
+        this.#drawMark(x1, y1, x2, y2);
         break;
     }
   }
@@ -64,24 +55,38 @@ export default class Model {
   }
 
   clear() {
-    this.#state.marks = [];
+    this.#state.marks = []
     this.#notifyAll(Changes.CLEAR_MARKS);
   }
 
   undo() {
-      // find strokeGroupId of last mark (ignore undo commands if nothing to undo)
-      const lastStrokeGroupId =
-        this.#state.marks[this.#state.marks.length - 1]?.strokeGroupId;
+    // find strokeGroupId of last mark (ignore undo commands if nothing to undo)
+    const lastStrokeGroupId =
+      this.#state.marks.map(mark => mark.strokeGroupId).reduce((pre, cur) => cur > pre ? cur : pre, -1);
+    const undoErasure = this.#state.marks.some(
+      (mark) => mark.strokeGroupId === lastStrokeGroupId && mark.erased
+    );
+    if (undoErasure) {
+      this.#state.marks
+        .filter((mark) => mark.strokeGroupId === lastStrokeGroupId)
+        .forEach((mark) => {
+          mark.erased = false;
+          mark.strokeGroupId = mark.previousStrokeGroupId;
+          delete mark.previousStrokeGroupId;
+        });
+    } else {
       // filter out all marks with that same strokeGroupId
       this.#state.marks = this.#state.marks.filter(
         (mark) => mark.strokeGroupId !== lastStrokeGroupId
       );
-      this.#notifyAll(Changes.UNDO);
+    }
+
+    this.#notifyAll(Changes.UNDO);
   }
 
   subscribe(observer) {
     this.#observers.push(observer);
-    observer.onChange(Changes.START, structuredClone(this.#state));
+    observer.onChange(Changes.START, this.#state);
   }
 
   #drawMark(x1, y1, x2, y2) {
@@ -98,10 +103,18 @@ export default class Model {
   }
 
   #eraseMark(x1, y1, x2, y2) {
-    this.#state.marks = this.#state.marks.filter(
-      (mark) => !Mark.intersects(mark, x1, y1, x2, y2)
-    );
+    this.#state.marks
+      .filter((mark) => Mark.intersects(mark, x1, y1, x2, y2) && !mark.erased)
+      .forEach((mark) => {
+        this.#setErasedPropertiesOnMark(mark)
+      });
     this.#notifyAll(Changes.ERASE_MARK);
+  }
+
+  #setErasedPropertiesOnMark(mark) {
+    mark.erased = true;
+    mark.previousStrokeGroupId = mark.strokeGroupId;
+    mark.strokeGroupId = this.#state.currentId;
   }
 
   #notifyAll(change) {

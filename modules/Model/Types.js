@@ -12,7 +12,11 @@ export default class Types {
         return { name: "THIN", width: 2 };
     }
 
+    static get ERASER() {
+        return {name: "ERASER", width: 10 };
+    }
+
     static get ALL() {
-        return [Types.THICK, Types.MEDIUM, Types.THIN]
+        return [Types.THIN, Types.MEDIUM, Types.THICK, Types.ERASER]
     }
 }

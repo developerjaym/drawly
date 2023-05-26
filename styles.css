@@ -120,12 +120,23 @@ fieldset {
   background-color: var(--selected-color);
 }
 
-.canvas--draw {
-  cursor: url(assets/pencil.png) 0 var(--cursor-size), auto;
+.canvas--THICK {
+  cursor: url(assets/THICK.png) 0 var(--cursor-size), auto;
+
+}
+
+.canvas--MEDIUM {
+  cursor: url(assets/MEDIUM.png) 0 var(--cursor-size), auto;
+
+}
+
+.canvas--THIN {
+  cursor: url(assets/THIN.png) 0 var(--cursor-size), auto;
+
 }
 
 .canvas--erase {
-  cursor: url(assets/eraser.png) 0 var(--cursor-size), auto;
+  cursor: url(assets/ERASER.png) 0 var(--cursor-size), auto;
 }
 
 #menu header h1 {
@@ -170,6 +181,11 @@ fieldset {
   }
   #menu header {
     display: none;
+  }
+
+  #typeSelect {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   fieldset {

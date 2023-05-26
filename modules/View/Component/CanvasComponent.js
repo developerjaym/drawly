@@ -1,5 +1,5 @@
 import Changes from "../../Event/Changes.js";
-import Mode from "../../Model/Mode.js";
+import Types from "../../Model/Types.js";
 import subscribeToResize from "../Resize/ResizeListener.js";
 
 class Pen {
@@ -91,11 +91,11 @@ export default class CanvasView {
   }
   onChange(change, state) {
     this.#lastState = state; // caching
-    const { background, marks, mode, backgroundImage } = state;
+    const { background, marks, backgroundImage, type } = state;
 
     switch (change) {
       case Changes.START:
-        this.#setMode(mode);
+        this.#setType(type);
       case Changes.BACKGROUND_IMAGE:
       case Changes.BACKGROUND:
       case Changes.UNDO:
@@ -107,8 +107,8 @@ export default class CanvasView {
           marks.forEach((mark) => this.#drawLine(mark))
         );
         break;
-      case Changes.MODE:
-        this.#setMode(mode);
+      case Changes.TYPE:  
+        this.#setType(type);
         break;
       case Changes.NEW_MARK:
         this.#drawLine(marks[marks.length - 1]);
@@ -135,7 +135,10 @@ export default class CanvasView {
     }
   }
 
-  #drawLine({ x1, y1, x2, y2, type, color }) {
+  #drawLine({ x1, y1, x2, y2, type, color, erased = false }) {
+    if(erased) {
+      return;
+    }
     this.#context.fillStyle = color;
 
     this.#context.lineWidth = type.width;
@@ -162,13 +165,13 @@ export default class CanvasView {
     this.#context.stroke();
     this.#context.closePath();
   }
-  #setMode(mode) {
-    if (mode === Mode.DRAW) {
-      this.#element.classList.add("canvas--draw");
-      this.#element.classList.remove("canvas--erase");
-    } else {
+  #setType(type) {
+    Types.ALL.forEach(type => this.#element.classList.remove(`canvas--${type.name}`))
+    if (type.name === Types.ERASER.name) {
       this.#element.classList.add("canvas--erase");
-      this.#element.classList.remove("canvas--draw");
+    } else {
+      this.#element.classList.remove("canvas--erase");
+      this.#element.classList.add(`canvas--${type.name}`);
     }
   }
 }
