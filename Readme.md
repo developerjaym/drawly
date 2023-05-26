@@ -11,7 +11,7 @@ This app has so many event listeners.
 - For some inputs: 'change'
 - For background images: 'load'
 - For the window: 'resize'
-- For the document: 'keyup'
+- For the document: 'keydown'
 
 ## Data Model
 This app is currently using LocalStorage but the code is there to make it use json-server and db.json. The state of the data may look like this at any given time.
@@ -78,6 +78,7 @@ I did pretty well with good coding practices at the beginning but then a few fea
 Even incredibly skilled instructors have challenges when coding. Here are some I had to deal with.
 - The performance was really bad when I had lots of marks on the Canvas. It was caused by my attempt at good coding. I had originally made the Model part of my code send a clone of its state in its messages to subscribers (see above for explanation of Model-View-Controller). But that's a lot of cloning whenever the mouse moves. I stopped the cloning and the problem was fixed. I just need to be careful now not to modify the message in the subscribers' onChange methods.
 - The strokes used to look bad. I copied the code for doing the simple strokes on Canvas from MDN or some other site. They looked weird in some cases, so I then added in some ellipses which I filled with the stroke color. I tried to make the ellipses as wide as the user-set stroke thickness, but that made the ellipses look really big. It took way too long for me to realize that the ellipses had both an outline (which was set to the user-set stroke width) and then the filled part. All fixed now.
+- I had trouble with my 'keyup' event listener on Mac. I wanted 'cmd+z' to be undo on Mac and 'ctrl+z' to be on undo on Windows, but it wasn't working on Mac. I could look at the event and figure out if 'cmd' was pressed, but I couldn't figure out if 'k' was pressed. After Googling, I found that it would work if I listened to 'keydown' instead.
 
 ## Room for Improvement
 - Initially the downloaded image was 1920x1080 pixels, which looked really weird on mobile. My code for changing the size of the downloaded image got complex and spaghetti-ish. I blame HTML Canvas.

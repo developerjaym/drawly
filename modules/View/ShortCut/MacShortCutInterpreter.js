@@ -1,10 +1,12 @@
 import ShortCuts from "./ShortCuts.js";
 export default class MacShortCutInterpreter {
     interpret(e) {
-        if (e.ctrlKey && e.key === "z") {
+        if (e.metaKey && e.key === "z") {
+            e.preventDefault();
             return ShortCuts.UNDO;
         }
-        else if (e.ctrlKey && e.key === "d") {
+        else if (e.metaKey && e.key === "d") {
+            e.preventDefault();
             return ShortCuts.CLEAR_ALL_STROKES;
         }
 

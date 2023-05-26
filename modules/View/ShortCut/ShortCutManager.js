@@ -8,9 +8,9 @@ export default class ShortCutManager {
         const commands = {
             [ShortCuts.UNDO]: () => controller.onUndo(),
             [ShortCuts.CLEAR_ALL_STROKES]: () => controller.onClear(),
-            [ShortCuts.NONE]: () => console.log("Not a shortcut")
+            [ShortCuts.NONE]: () => {}
         }
-        document.addEventListener("keyup", (e) => {
+        document.addEventListener("keydown", (e) => {
             commands[interpreter.interpret(e)]();
         })
     }
