@@ -4,6 +4,7 @@ import Changes from "../../Event/Changes.js";
 import Save from "../../Service/Save/Save.js";
 import subscribeToResize from "../Resize/ResizeListener.js";
 import TypeTranslator from "../../Service/Translate/TypeTranslator.js";
+import ConfirmClearDialog from "./ConfirmClearDialog.js";
 
 function readImage(file, callback) {
   // Check if the file is an image.
@@ -59,7 +60,7 @@ export default class MenuComponent {
     this.#addOptions();
     this.#clearButton = this.#element.querySelector("#clearButton");
     this.#clearButton.addEventListener("click", () =>
-      this.#controller.onClear()
+      new ConfirmClearDialog(() => this.#controller.onClear()).show()
     );
     this.#undoButton = this.#element.querySelector("#undoButton");
     this.#undoButton.addEventListener("click", () => this.#controller.onUndo());
@@ -105,7 +106,8 @@ export default class MenuComponent {
   #buildTypeOption(item) {
     const friendlyName = TypeTranslator(item.name);
     const button = document.createElement("button");
-    button.addEventListener("click", () => this.#controller.onTypeChanged(item)
+    button.addEventListener("click", () =>
+      this.#controller.onTypeChanged(item)
     );
     button.title = `${friendlyName}`;
     button.dataset.type = `${item.name}`;

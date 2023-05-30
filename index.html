@@ -54,12 +54,12 @@
                 <li class="menu__item">
                     <button id="clearButton" class="menu__button"> <img src="assets/trash.svg" alt="Trashcan" width="24"
                             height="24"><span>Clear
-                            Foreground</span></button>
+                            All Strokes</span></button>
                 </li>
                 <li class="menu__item">
-                    <button id="undoButton" class="menu__button"> <img src="assets/undo.svg" alt="Undo"
-                            width="24" height="24"> <span>Undo
-                            </span></button>
+                    <button id="undoButton" class="menu__button"> <img src="assets/undo.svg" alt="Undo" width="24"
+                            height="24"> <span>Undo Stroke
+                        </span></button>
                 </li>
 
             </menu>
@@ -83,7 +83,7 @@
             </menu>
         </fieldset>
         <fieldset class="no-print">
-            <legend>Foreground</legend>
+            <legend>Stroke</legend>
 
             <menu>
                 <li class="menu__item">
@@ -115,7 +115,18 @@
 
         </canvas>
     </div>
-
+    <dialog id="confirmClearDialog" class="dialog">
+        <header>
+            <h2>Clear All Strokes?</h2>
+        </header>
+        <p class="dialog__content">Are you sure you want to permanently clear all your strokes? This can't be undone.</p>
+        <menu class="dialog__menu">
+            <button class="dialog__button" id="cancelClearButton">No, don't.</button>
+            <button class="dialog__button" id="confirmClearButton"><img src="assets/trash.svg" alt="Trashcan" width="24"
+                height="24"><span>Yes, clear
+                foreground</span></button>
+        </menu>
+    </dialog>
 </body>
 
 </html>

@@ -75,7 +75,8 @@ menu {
 }
 
 fieldset {
-  border: solid rgba(var(--foreground-color-rgb), var(--dark-light-opacity)) var(--border-thickness);
+  border: solid rgba(var(--foreground-color-rgb), var(--dark-light-opacity))
+    var(--border-thickness);
   border-radius: var(--border-radius);
 }
 
@@ -100,7 +101,8 @@ fieldset {
 
 .menu__input,
 .menu__button,
-.color-cell {
+.color-cell,
+.dialog__button {
   width: 100%;
   border-radius: var(--border-radius);
   border: solid var(--foreground-color) var(--border-thickness);
@@ -109,7 +111,8 @@ fieldset {
 .menu__button:active,
 .menu__input:active,
 .color-cell:active {
-  border: solid rgba(var(--foreground-color-rgb), var(--dark-light-opacity)) var(--border-thickness);
+  border: solid rgba(var(--foreground-color-rgb), var(--dark-light-opacity))
+    var(--border-thickness);
 }
 
 .menu__item {
@@ -122,17 +125,14 @@ fieldset {
 
 .canvas--THICK {
   cursor: url(assets/THICK.png) 0 var(--cursor-size), auto;
-
 }
 
 .canvas--MEDIUM {
   cursor: url(assets/MEDIUM.png) 0 var(--cursor-size), auto;
-
 }
 
 .canvas--THIN {
   cursor: url(assets/THIN.png) 0 var(--cursor-size), auto;
-
 }
 
 .canvas--erase {
@@ -141,6 +141,28 @@ fieldset {
 
 #menu header h1 {
   text-align: center;
+}
+
+.dialog {
+  border-radius: var(--border-radius);
+  border: solid 1px var(--foreground-color);
+}
+
+.dialog__menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: var(--wide-space);
+}
+
+.dialog__content {
+  max-width: 20rem;
+}
+
+.dialog__button {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 @media print {
@@ -198,5 +220,8 @@ fieldset {
   }
   #canvasContainer {
     touch-action: none;
+  }
+  .big-screen-only {
+    display: none;
   }
 }
