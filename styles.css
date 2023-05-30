@@ -110,7 +110,8 @@ fieldset {
 
 .menu__button:active,
 .menu__input:active,
-.color-cell:active {
+.color-cell:active,
+.dialog__button:active {
   border: solid rgba(var(--foreground-color-rgb), var(--dark-light-opacity))
     var(--border-thickness);
 }
@@ -146,6 +147,7 @@ fieldset {
 .dialog {
   border-radius: var(--border-radius);
   border: solid 1px var(--foreground-color);
+  background-color: var(--background-color);
 }
 
 .dialog__menu {
