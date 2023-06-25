@@ -3,14 +3,46 @@
   "name": "Drawly",
   "icons": [
     {
-      "src": "./assets/logo.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "./pwa/x48.png",
+      "sizes": "48x48 32x32 24x24 16x16",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
-      "src": "./assets/logo.png",
+      "src": "./pwa/x72.png",
+      "sizes": "72x72 64x64",
       "type": "image/png",
-      "sizes": "192x192"
+      "purpose": "maskable"
+    },
+    {
+      "src": "./pwa/x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./pwa/x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./pwa/x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./pwa/x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./pwa/x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "./assets/logo.png",
@@ -20,6 +52,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#ffffff",
+  "background_color": "#00000000"
 }
