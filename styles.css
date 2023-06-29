@@ -103,6 +103,7 @@ fieldset {
   grid-template-rows: var(--color-button-width);
   row-gap: var(--narrow-space);
   column-gap: var(--narrow-space);
+  margin-top: var(--narrow-space);
 }
 
 .color-cell {
@@ -132,10 +133,6 @@ fieldset {
 .color-cell:active,
 .dialog__button:active {
   border-color: var(--selected-color);
-}
-
-.menu__item {
-  margin-bottom: var(--narrow-space);
 }
 
 .button--active {

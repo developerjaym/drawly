@@ -27,18 +27,18 @@
 
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
 
-   
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#00000000">
     <link href="styles.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="assets/logo.ico">
-    <link rel="manifest" href="./manifest.json"/>
+    <link rel="manifest" href="./manifest.json" />
     <title>Drawly</title>
     <script type="module" src="index.js"></script>
     <script>
-        if('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js', {scope: './'})
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js', { scope: './' })
         }
     </script>
 </head>
@@ -51,7 +51,7 @@
         </header>
         <fieldset class="no-print">
             <legend>Actions</legend>
-            <menu>
+            <menu aria-label="Drawing File Actions">
 
                 <li class="menu__item">
                     <a id="downloadButton" download="drawly.png"> <button class="menu__button"> <img
@@ -74,7 +74,7 @@
         <fieldset class="no-print">
             <legend>Background</legend>
 
-            <menu>
+            <menu aria-label="Background Settings">
                 <li class="menu__item">
                     <label>
                         <span class="label__text">Color</span>
@@ -92,13 +92,13 @@
         <fieldset class="no-print">
             <legend>Stroke</legend>
 
-            <menu>
+            <menu aria-label="Stroke Mode">
                 <li class="menu__item">
                     <label>
                         <span class="label__text">Mode</span>
-                        <div id="typeSelect">
-                        </div>
                     </label>
+                    <div id="typeSelect">
+                    </div>
                 </li>
                 <li class="menu__item">
                     <label>
@@ -127,12 +127,13 @@
             <img src="pwa/x48.png" alt="rainbow color brush strokes" height="48" width="48" />
             <h2>Clear All Strokes?</h2>
         </header>
-        <p class="dialog__content">Are you sure you want to permanently clear all your strokes? This can't be undone.</p>
+        <p class="dialog__content">Are you sure you want to permanently clear all your strokes? This can't be undone.
+        </p>
         <menu class="dialog__menu">
             <button class="dialog__button" id="cancelClearButton">No, don't.</button>
             <button class="dialog__button" id="confirmClearButton"><img src="assets/trash.svg" alt="Trashcan" width="24"
-                height="24"><span>Yes, clear
-                all.</span></button>
+                    height="24"><span>Yes, clear
+                    all.</span></button>
         </menu>
     </dialog>
 </body>

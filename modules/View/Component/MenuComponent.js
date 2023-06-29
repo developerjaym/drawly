@@ -126,9 +126,17 @@ export default class MenuComponent {
 
   #toggleTypeButtons(type) {
     Array.from(this.#typeSelect.children).forEach((button) =>
-      button.dataset.type === type.name
-        ? button.classList.add("button--active")
-        : button.classList.remove("button--active")
+      this.#activateTypeButton(button, button.dataset.type === type.name)
+       
     );
+  }
+  #activateTypeButton(button, shouldActivate) {
+    if(shouldActivate) {
+      button.classList.add("button--active")
+      button.ariaPressed = true;
+    } else {
+      button.classList.remove("button--active")
+      button.ariaPressed = false;
+    }
   }
 }
