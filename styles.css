@@ -10,14 +10,29 @@
 
   --foreground-color-rgb: 0, 0, 0;
   --foreground-color: rgb(var(--foreground-color-rgb));
+  --control-foreground-color: rgb(0, 0, 0);
   --selected-color: #59fe13;
   --background-color-rgb: 220, 220, 220;
   --background-color: rgb(var(--background-color-rgb));
+  --control-background-color: rgb(200, 200, 200);
   --light-color-rgb: 255, 255, 255;
   --dark-light-opacity: 0.25;
 
   --animation-duration: 100ms;
+
+  color-scheme: light dark;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-color-rgb: 240, 240, 240;
+    --selected-color: darkolivegreen;
+    --background-color-rgb: 24, 24, 24;
+    --light-color-rgb: 255, 255, 255;
+    --dark-light-opacity: 0.66;
+  }
+}
+
 
 body {
   margin: 0;
@@ -98,7 +113,7 @@ fieldset {
   display: grid;
   grid-template-columns: 1fr 2fr;
   place-items: center;
-  background-color: rgba(var(--light-color-rgb), var(--dark-light-opacity));
+  margin-bottom: var(--narrow-space);
 }
 
 .menu__input,
@@ -108,14 +123,15 @@ fieldset {
   width: 100%;
   border-radius: var(--border-radius);
   border: solid var(--foreground-color) var(--border-thickness);
+  color: var(--control-foreground-color);
+  background-color: var(--control-background-color);
 }
 
 .menu__button:active,
 .menu__input:active,
 .color-cell:active,
 .dialog__button:active {
-  border: solid rgba(var(--foreground-color-rgb), var(--dark-light-opacity))
-    var(--border-thickness);
+  border-color: var(--selected-color);
 }
 
 .menu__item {
@@ -212,6 +228,8 @@ fieldset {
   #typeSelect {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    row-gap: var(--narrow-space);
+    column-gap: var(--narrow-space);
   }
 
   fieldset {

@@ -10,7 +10,7 @@ export default class Model {
       type: Types.THICK,
       strokeColor: "#000000",
       marks: [],
-      background: "#ffffff",
+      background: "#777777",
       backgroundImage: null,
       currentId: 0,
     }
