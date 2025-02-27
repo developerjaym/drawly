@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+
     <meta name="keywords" content="draw, paint">
     <meta name="author" content="developerjaym">
 
@@ -27,7 +27,7 @@
 
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
 
-   
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#00000000">
@@ -38,7 +38,7 @@
     <script type="module" src="index.js"></script>
     <script>
         if('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js', {scope: './'})
+            navigator.serviceWorker.register('sw.js', {scope: '/draw/'})
         }
     </script>
 </head>
@@ -46,7 +46,7 @@
 <body>
     <div id="menu" class="no-print">
         <header class="no-print">
-            <img src="pwa/x48.png" alt="rainbow color brush strokes" height="48" width="48" />
+            <img src="assets/logo.jpeg" alt="rainbow color brush strokes" height="48" width="48" />
             <h1>Drawly</h1>
         </header>
         <fieldset class="no-print">
@@ -124,7 +124,7 @@
     </div>
     <dialog id="confirmClearDialog" class="dialog">
         <header>
-            <img src="pwa/x48.png" alt="rainbow color brush strokes" height="48" width="48" />
+            <img src="assets/logo.jpeg" alt="rainbow color brush strokes" height="48" width="48" />
             <h2>Clear All Strokes?</h2>
         </header>
         <p class="dialog__content">Are you sure you want to permanently clear all your strokes? This can't be undone.</p>
